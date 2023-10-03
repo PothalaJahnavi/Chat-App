@@ -37,7 +37,6 @@ const ChatMessages = () => {
         .get(`http://10.5.4.118:8000/messages/${userId}/${receiver}`)
         .then((response) => {
           if (response.data) {
-            console.log(response.data);
             setAllMessages(response.data);
           } else {
             console.log("error fetching messages");
@@ -138,9 +137,10 @@ const handleDelete=async()=>{
     };
     fetchReceiverData();
   }, []);
+  
   useEffect(() => {
     fetchMessages();
-  }, []);
+  });
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -246,7 +246,7 @@ const handleDelete=async()=>{
               );
             }
             if (item.messageType === "image") {
-              const baseUrl = "../api/files/";
+              const baseUrl = "/Users/INNCIRCLES/Desktop/projects/Native/chat/api/files/";
               const imageUrl = item.imageUrl;
               const filename = imageUrl.split(/[\\/]/).pop();
               const source = { uri: baseUrl + filename };
@@ -275,10 +275,10 @@ const handleDelete=async()=>{
                   ]}
                 >
                   <View>
-                    <Image
-                      source={source}
-                      style={{ width: 200, height: 200, borderRadius: 7 }}
-                    />
+                  <Image
+                    source={source}
+                    style={{ width: 200, height: 200, borderRadius: 7 }}
+                  />
                   </View>
                   <Text style={{ fontSize: 12, color: "grey", textAlign: "right" }}>
                     {formatTime(item.timeStamp)}

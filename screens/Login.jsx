@@ -50,7 +50,7 @@ useEffect(()=>{
         <TextInput placeholder='Email' name="email" value={email} style={styles.input}onChangeText={(text)=>setEmail(text)}/>
        </View>
        <View>
-        <TextInput placeholder='Password' name="password" value={password}  style={styles.input} onChangeText={(text)=>setpassword(text)}/>
+        <TextInput secureTextEntry={true} placeholder='Password' name="password" value={password}  style={styles.input} onChangeText={(text)=>setpassword(text)}/>
        </View>
        <View>
         <TouchableOpacity style={styles.button} onPress={handleLogin}>

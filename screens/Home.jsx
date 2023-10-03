@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
@@ -43,21 +43,24 @@ const Home = () => {
     })
    }
 useEffect(()=>{
-   
  fetchUsers()
-
-},[])
+})
 
   return (
     <SafeAreaView>
-      <View>
+      <ScrollView>
         {
-          users.map((item,index)=>{
+          users?users.map((item,index)=>{
             return(
               <User key={index} item={item} fetchUsers={fetchUsers}></User>            )
-          })
+          }):
+          <>
+          <View style={{top:50,padding:10}}>
+            <Text style={{fontSize:20,fontWeight:800,color:'#451952'}}>No Users Found</Text>
+          </View>
+          </>
         }
-      </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }

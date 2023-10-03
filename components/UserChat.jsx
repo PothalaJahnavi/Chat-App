@@ -24,7 +24,6 @@ const UserChat = ({item}) => {
           console.log(error);
         }
         const n=allMessages.length
-        console.log(n)
         setLastMessage(allMessages[n-1])
       };
       const formatTime = (time) => {
@@ -37,7 +36,6 @@ const UserChat = ({item}) => {
       };
     useEffect(() => {
         fetchMessages();
-        console.log(lastMessage)
       }, []);
   return (
     <Pressable style={{padding:10,borderBottomWidth:1,borderBlockColor:'grey'}} onPress={()=>navigation.navigate('Messages',{
@@ -45,11 +43,7 @@ const UserChat = ({item}) => {
     })}>
         <View style={{display:'flex',flexDirection:'row',padding:10}}>
 <View style={{marginRight:10}}>
-{
-item.image!=""?<Image source={item.image}></Image>:
 <View style={{width:50,height:50,backgroundColor:"grey",borderRadius:50}}></View>
-
-}
 </View>
 <View style={{flex:1}}>
 <Text style={{fontWeight:'bold'}}>{item.name}</Text>

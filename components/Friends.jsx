@@ -14,7 +14,6 @@ const Friends = ({item,friends,setFriends}) => {
                 sender:sender,
                 receiver:receiver
                }).then((response)=>{
-                console.log(response)
                 if(response){
                     Alert.alert("Request Accepted")
                     setFriends(friends.filter((friend)=>friend._id!=receiver))
@@ -30,11 +29,7 @@ const Friends = ({item,friends,setFriends}) => {
   return (
     <Pressable style={{display:"flex",flexDirection:"row",alignItems:"center",marginVertical:10}} >
     <View>
-        {
-            item.image!=""?<Image source={item.image}></Image>:
             <View style={{width:50,height:50,backgroundColor:"grey",borderRadius:50}}></View>
-
-        }
     </View>
     <View style={{marginLeft:15,flex:1}}>
     <Text style={{fontSize:15,fontWeight:600}} >{item.name} Sent You a Friend Request!!</Text>

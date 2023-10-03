@@ -35,8 +35,8 @@ const createToken=(userId)=>{
 }
 
 app.post('/register',(req,res)=>{
-    const {name,email,password,image}=req.body
-    const newUser=new Users({name,email,password,image})
+    const {name,email,password}=req.body
+    const newUser=new Users({name,email,password})
     newUser.save().then(()=>{
         res.status(200).json({message:"user Registered Successsfullly"})
     }).catch((err)=>{
@@ -76,14 +76,20 @@ app.get("/users/:userId",(req,res)=>{
 app.post("/friend-request",async(req,res)=>{
     const sender=req.body.sender
     const receiver=req.body.receiver
+  
    try{
+    const sender_data=await Users.findById(sender)
+    if(sender_data.FriendRequestsSent.includes(receiver))
+    {
+      console.log("err")
+      return res.status(400).json({message:"Friend already exist"})
+    }
       await Users.findByIdAndUpdate(sender,{
         $push:{FriendRequestsSent:receiver}
       })
       await Users.findByIdAndUpdate(receiver,{
         $push:{friendRequests:sender}
       })
-    //   console.log("js")
       res.status(200).json({message:"Request Sent"})
    }
    catch(error){
@@ -207,7 +213,6 @@ app.get('/messages/:sender/:receiver',async(req,res)=>{
 
 app.post("/deleteMessages",async(req,res)=>{
   const messages=req.body.selectedMessages
-  console.log('messages',messages)
   try{
     if(!Array.isArray(messages)||messages.length==0){
       res.status(400).json({message:'No messages to delete'})

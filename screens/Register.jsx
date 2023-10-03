@@ -9,20 +9,21 @@ const Register = () => {
     const [name,setName]=useState('')
     const [email,setEmail]=useState('')
     const [password,setpassword]=useState('')
-    const [image,setImage]=useState('')
 
     const handleRegister=async()=>{
+      if(name==""||email==""||password==""){
+        Alert.alert("All Fields are required")
+        return;
+      }
       const user={
         name:name,
         email:email,
         password:password,
-        image:image
       }
        await axios.post('http://10.5.4.118:8000/register',user).then((response)=>{
         Alert.alert("Registration successfull")
         setName('')
         setEmail('')
-        setImage(''),
         setpassword('')
        }).catch((err)=>{
         console.log(err)
@@ -37,16 +38,13 @@ const Register = () => {
        <Text style={{padding:10,fontSize:30,fontWeight:600,marginTop:100,color:'#451952',textAlign:'center'}}>Register For Your Account</Text>
        </View>
        <View>
-        <TextInput placeholder='Name' name="name" value={name} style={styles.input} onChangeText={(text)=>setName(text)}/>
+        <TextInput placeholder='Name' name="name" value={name} style={styles.input} onChangeText={(text)=>setName(text)} />
        </View>
        <View>
         <TextInput placeholder='Email' name="email" value={email} style={styles.input} onChangeText={(text)=>setEmail(text)}/>
        </View>
        <View>
-        <TextInput placeholder='Password' name="password" value={password} style={styles.input} onChangeText={(text)=>setpassword(text)}/>
-       </View>
-       <View>
-        <TextInput placeholder='Image' name="image" value={image} style={styles.input} onChangeText={(text)=>setImage(text)}/>
+        <TextInput secureTextEntry={true} placeholder='Password' name="password" value={password} style={styles.input} onChangeText={(text)=>setpassword(text)}/>
        </View>
        <View>
        <TouchableOpacity style={styles.button} onPress={handleRegister}>

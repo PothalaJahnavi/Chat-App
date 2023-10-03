@@ -18,9 +18,7 @@ const FriendRequests = () => {
     })
   }
    fetchFriendRequests()
-
-
-  },[])
+  })
   return (
     <View>
       <Text style={{textAlign:'center',fontWeight:800,fontSize:19,padding:10}}>Friend Requests</Text>
